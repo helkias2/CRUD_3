@@ -5,7 +5,7 @@
 
 			<div class="col-md-12">
 					
-					<form action="" method="post">
+					<form action="<?= base_url()?>games/store" method="post">
 					
 					<div class="col-md-6">
 						<div class="form-group">
@@ -20,14 +20,6 @@
 							<textarea name="description" id="description" rows="5" class="form-control" required></textarea>
 						</div>
 					</div>
-
-					<div class="col-md-6">
-						<div class="form-group">
-							<label for="category">Category</label>
-							<input type="text" class="form-control" name="category" id="category" placeholder="Category" value="" required>
-						</div>
-					</div>
-
 					<div class="col-md-6">
 						<div class="form-group">
 							<label for="price">Price</label>
@@ -39,6 +31,13 @@
 						<div class="form-group">
 							<label for="developer">Developer</label>
 							<input type="text" class="form-control" name="developer" id="developer" placeholder="Developer" value="" required>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="release_date">Release Date</label>
+							<input type="date" class="form-control" name="release_date" id="release_date" placeholder="Release Date" value="" required>
 						</div>
 					</div>
 
