@@ -3,9 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller {
 
+    public function __construct(){
+        parent::__construct();
+        $this->load->model('games_model', 'games');
+
+    }
+
     public function index(){
         //chamada do metodo da model
-        $this->load->model('games_model', 'games');
+        
         //chama a model e executando meu metodo lista
         $data['litas_de_games'] = $this->games->list();
         $data['title'] = 'Dashboard - Sistema de Produtos';

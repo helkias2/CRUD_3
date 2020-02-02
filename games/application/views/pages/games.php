@@ -26,7 +26,10 @@
 					<td><?=$games['price']?></td>
 					<td><?=$games['developer']?></td>
 					<td><?=$games['release_date']?></td>
-					<td><a href="#" class="btn btn-primary">Detalhes</td>
+					<td>
+						<a href="<?= base_url()?>games/edit/<?= $games['id']?>" class="btn btn-primary btn-sm btn-warning"><i class="fas fa-pencil-alt"></i> 
+						<a href="<?= base_url()?>games/delete/<?= $games['id']?>" class="btn btn-primary btn-sm btn-danger" onclick="confirm('Deseja realmete apagar esse registro')"><i class="fas fa-trash-alt"></i>
+					</td>
 
 				</tr>
 				<?php endforeach; ?>

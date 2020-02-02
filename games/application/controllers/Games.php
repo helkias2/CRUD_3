@@ -3,9 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Games extends CI_Controller {
 
+    public function __construct(){
+    parent::__construct();
+    $this->load->model('games_model', 'games');
+    }
+
     public function index(){
         //chamada do metodo da model
-        $this->load->model('games_model', 'games');
+     
         //chama a model e executando o metodo
         $data['litas_de_games'] = $this->games->list();
         $data['title'] = 'Games - Sistema de Produtos';
@@ -29,22 +34,55 @@ class Games extends CI_Controller {
     }
 
     public function store(){
-
-        print_r($_POST);
-
-  
+        //nao preciso passa addslashes do php
 
         $games = array(
-            'name' => $this->input->post('name'),
-            'description' => $this->input->post('description'),
-            'price' => $this->input->post('price'),
-            'developer' => $this->input->post('developer'),
+            'name' => trim($this->input->post('name')),
+            'description' => trim($this->input->post('description')),
+            'price' => trim($this->input->post('price')),
+            'developer' => trim($this->input->post('developer')),
             'release_date' => $this->input->post('release_date')
         );
-        $this->load->model('games_model', 'games');
+
         $this->games->store($games);
         
     redirect('/');
+    }
+
+    public function edit($id){
+        
+
+        $data['game'] = $this->games->show($id);
+        $data['title'] = "Games - CodeIgNiter";
+
+        $this->load->view('templates/header');
+        $this->load->view('templates/nav-top');
+        $this->load->view('pages/form-games', $data);
+        $this->load->view('templates/footer');
+        $this->load->view('templates/js');
+
+    }
+
+    public function update($id){
+
+
+        $games = array(
+            'name' => trim($this->input->post('name')),
+            'description' => trim($this->input->post('description')),
+            'price' => trim($this->input->post('price')),
+            'developer' => trim($this->input->post('developer')),
+            'release_date' => $this->input->post('release_date')
+        );
+        $this->games->update($id, $games);
+
+        redirect('games');
+    }
+
+    public function delete($id){
+
+        $this->games->delete($id);
+
+        redirect('games');
     }
 
 
