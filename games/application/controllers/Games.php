@@ -4,15 +4,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Games extends CI_Controller {
 
     public function __construct(){
-    parent::__construct();
-    $this->load->model('games_model', 'games');
+        parent::__construct();
+        $this->load->model('games_model', 'games');
+        $this->load->model('login_model', 'login');
+        if($this->login->isLoggout($_SESSION['logger_user']['id']) != FALSE){
+            return true;
+        }else{
+            redirect('login');
+
+        }
+
     }
 
     public function index(){
         //chamada do metodo da model
      
         //chama a model e executando o metodo
-        $data['litas_de_games'] = $this->games->list();
+        $id = $_SESSION['logger_user']['id'];
+
+        
+        $data['litas_de_games'] = $this->games->list($id);
         $data['title'] = 'Games - Sistema de Produtos';
 
         $this->load->view('templates/header', $data);
@@ -34,14 +45,16 @@ class Games extends CI_Controller {
     }
 
     public function store(){
-        //nao preciso passa addslashes do php
-
+        
+        //Nao preciso passa addslashes do php
         $games = array(
+           
             'name' => trim($this->input->post('name')),
             'description' => trim($this->input->post('description')),
             'price' => trim($this->input->post('price')),
             'developer' => trim($this->input->post('developer')),
-            'release_date' => $this->input->post('release_date')
+            'release_date' => $this->input->post('release_date'),
+            'user_id' => $_SESSION['logger_user']['id']
         );
 
         $this->games->store($games);

@@ -6,7 +6,6 @@ class Login extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('login_model', 'login');
-
     }
 
     public function index(){
@@ -18,9 +17,11 @@ class Login extends CI_Controller {
     }
 
     public function store(){
+        
         $email = $this->input->post('email');
         $password = $this->input->post('password');
         $user = $this->login->store($email, $password);
+
         if($user){
             $this->session->set_userdata('logger_user', $user);
             redirect('dashboard');
